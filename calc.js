@@ -63,21 +63,7 @@ var tdDIV = document.createElement('td');
     tdDIV.textContent ='/';
     tdDIV.addEventListener('click', function(e){
       operands.push('/');
-      inputNums.push(tdTotal.textContent);
-      if(inputNums.length < 2){
-        console.log("IN IF");
-        tdTotal.textContent = '';
-        console.log(inputNums);
-        currentNumber = '';
-      }
-      else {
-        var tempResult = parseFloat(inputNums[0]) / parseFloat(inputNums[1]);
-        inputNums = [];
-        inputNums.push(tempResult);
-        console.log(tempResult);
-        tdTotal.textContent = tempResult;
-        currentNumber = '';
-      }
+      doTheMath();
     });
     //---------------------------------------------
 calctable.appendChild(trow2);
@@ -117,23 +103,7 @@ var tdSUB = document.createElement('td');
     tdSUB.textContent ='-';
     tdSUB.addEventListener('click', function(e){
       operands.push('-');
-      inputNums.push(tdTotal.textContent);
-
-
-      if(inputNums.length < 2){
-        console.log("IN IF");
-        tdTotal.textContent = '';
-        console.log(inputNums);
-        currentNumber = '';
-      }
-      else {
-        var tempResult = parseFloat(inputNums[0]) - parseFloat(inputNums[1]);
-        inputNums = [];
-        inputNums.push(tempResult);
-        console.log(tempResult);
-        tdTotal.textContent = tempResult;
-        currentNumber = '';
-      }
+      doTheMath();
     });
     //---------------------------------------------
 calctable.appendChild(trow3);
@@ -172,22 +142,8 @@ var tdMULT = document.createElement('td');
     tdMULT.className = 'math';
     tdMULT.textContent ='x'
     tdMULT.addEventListener('click', function(e){
-      inputNums.push(tdTotal.textContent);
+      doTheMath();
       operands.push('*');
-      if(inputNums.length < 2){
-        console.log("IN IF");
-        tdTotal.textContent = '';
-        console.log(inputNums);
-        currentNumber = '';
-      }
-      else {
-        var tempResult = parseFloat(inputNums[0]) * parseFloat(inputNums[1]);
-        inputNums = [];
-        inputNums.push(tempResult);
-        console.log(tempResult);
-        tdTotal.textContent = tempResult;
-        currentNumber = '';
-      }
     });
     //---------------------------------------------
 calctable.appendChild(trow4);
@@ -221,15 +177,7 @@ var tdEQUALS = document.createElement('td');
     tdEQUALS.textContent ='='
     tdEQUALS.addEventListener('click', function(e){
       inputNums.push(tdTotal.textContent);
-      var oper = operands[operands.length-1];
-      console.log(oper);
-      var tempResult = parseFloat(inputNums[0]) + oper + parseFloat(inputNums[1]);
-      tempResult = eval(tempResult);
-      inputNums = [];
-      inputNums.push(tempResult);
-      console.log(tempResult);
-      tdTotal.textContent = tempResult;
-      currentNumber = '';
+      doTheMath();
     });
     //---------------------------------------------
 var tdADD = document.createElement('td');
@@ -237,25 +185,30 @@ var tdADD = document.createElement('td');
     tdADD.textContent ='+'
     tdADD.addEventListener('click', function(e){
       operands.push('+');
-      inputNums.push(tdTotal.textContent);
-      if(inputNums.length < 2){
-        console.log("IN IF");
-        tdTotal.textContent = '';
-        console.log(inputNums);
-        currentNumber = '';
-      }
-      else {
-        var tempResult = parseFloat(inputNums[0]) + parseFloat(inputNums[1]);
-        inputNums = [];
-        inputNums.push(tempResult);
-        console.log(tempResult);
-        tdTotal.textContent = tempResult;
-        currentNumber = '';
-      }
+      doTheMath();
     });
 
     //---------------------------------------------
 //~*~*~*~*~*~*~*~*~*~* MATH FUNCTION (goes here)
+var doTheMath = function(){
+  inputNums.push(tdTotal.textContent);
+  if(inputNums.length < 2){
+    console.log("IN IF");
+    tdTotal.textContent = '';
+    console.log(inputNums);
+    currentNumber = '';
+  }
+  else {
+    var oper = operands[operands.length-1];
+    var tempResult = parseFloat(inputNums[0]) + oper + parseFloat(inputNums[1]);
+    tempResult = eval(tempResult);
+    inputNums = [];
+    inputNums.push(tempResult);
+    console.log(tempResult);
+    tdTotal.textContent = tempResult;
+    currentNumber = '';
+  }
+};
 
 //#####################################################
 calctable.appendChild(trow5);
