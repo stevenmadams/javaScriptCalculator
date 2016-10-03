@@ -62,8 +62,7 @@ var tdDIV = document.createElement('td');
     tdDIV.className = 'math';
     tdDIV.textContent ='/';
     tdDIV.addEventListener('click', function(e){
-      operands.push('/');
-      doTheMath();
+      doTheMath('/');
     });
     //---------------------------------------------
 calctable.appendChild(trow2);
@@ -102,7 +101,6 @@ var tdSUB = document.createElement('td');
     tdSUB.className = 'math';
     tdSUB.textContent ='-';
     tdSUB.addEventListener('click', function(e){
-      // operands.push('-');
       doTheMath('-');
     });
     //---------------------------------------------
@@ -142,8 +140,7 @@ var tdMULT = document.createElement('td');
     tdMULT.className = 'math';
     tdMULT.textContent ='x'
     tdMULT.addEventListener('click', function(e){
-      doTheMath();
-      operands.push('*');
+      doTheMath('*');
     });
     //---------------------------------------------
 calctable.appendChild(trow4);
