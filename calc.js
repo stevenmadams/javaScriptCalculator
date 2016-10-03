@@ -102,8 +102,8 @@ var tdSUB = document.createElement('td');
     tdSUB.className = 'math';
     tdSUB.textContent ='-';
     tdSUB.addEventListener('click', function(e){
-      operands.push('-');
-      doTheMath();
+      // operands.push('-');
+      doTheMath('-');
     });
     //---------------------------------------------
 calctable.appendChild(trow3);
@@ -177,39 +177,56 @@ var tdEQUALS = document.createElement('td');
     tdEQUALS.textContent ='='
     tdEQUALS.addEventListener('click', function(e){
       inputNums.push(tdTotal.textContent);
-      doTheMath();
+      doTheMath(operands[operands.length-1]);
     });
     //---------------------------------------------
 var tdADD = document.createElement('td');
     tdADD.className = 'math';
     tdADD.textContent ='+'
     tdADD.addEventListener('click', function(e){
-      operands.push('+');
-      doTheMath();
+      // operands.push('+');
+      doTheMath('+');
     });
 
     //---------------------------------------------
-//~*~*~*~*~*~*~*~*~*~* MATH FUNCTION (goes here)
-var doTheMath = function(){
-  inputNums.push(tdTotal.textContent);
-  if(inputNums.length < 2){
-    console.log("IN IF");
-    tdTotal.textContent = '';
-    console.log(inputNums);
+//~*~*~*~*~*~*~*~*~*~* DO THE MATH
+var doTheMath = function(passedOp){
+  console.log("OPS " +operands);
+  if(inputNums.length < 1){
+    inputNums.push(currentNumber);
+    operands.push(passedOp);
+    console.log("IN IF " + inputNums);
     currentNumber = '';
   }
   else {
-    var oper = operands[operands.length-1];
-    var tempResult = parseFloat(inputNums[0]) + oper + parseFloat(inputNums[1]);
-    tempResult = eval(tempResult);
+  if (operands[operands.length-1]!== passedOp) {
+    inputNums.push(currentNumber);
+    console.log("INPUT NUMS IN IF 3 "+inputNums);
+    console.log("IN IF 3 -  PASSED OP " + passedOp + " OP ARRAY " + operands[operands.length-1]);
+    var oper2 = operands[operands.length-1]
+    var tempResult = parseFloat(inputNums[0]) + oper2 + parseFloat(inputNums[1]);
     inputNums = [];
+    tempResult = eval(tempResult);
     inputNums.push(tempResult);
     console.log(tempResult);
-    tdTotal.textContent = tempResult;
     currentNumber = '';
+    operands.push(passedOp);
   }
+  else {
+    inputNums.push(currentNumber);
+    console.log("IN IF 2 " + inputNums + "PASSED OP " + passedOp + " OP ARRAY " + operands[operands.length-1]);
+    var oper = passedOp;
+    var tempResult = parseFloat(inputNums[0]) + oper + parseFloat(inputNums[1]);
+    inputNums = [];
+    tempResult = eval(tempResult);
+    inputNums.push(tempResult);
+    console.log(tempResult);
+    currentNumber = '';
+    operands.push(passedOp);
+  }
+}
+  tdTotal.textContent = inputNums[0];
 };
-
 //#####################################################
 calctable.appendChild(trow5);
 calctable.appendChild(tdDEC);
@@ -219,6 +236,5 @@ calctable.appendChild(tdADD);
 //**//**//**//**//**//**//**//**//**//**//**//**//**//**//
 document.body.appendChild(calctable);
 //**//**//**//**//**//**//**//**//**//**//**//**//**//**//
-
 }
 window.addEventListener('load', alertWindowLoad);
